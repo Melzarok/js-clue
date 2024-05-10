@@ -1,138 +1,136 @@
-// Задача 1: Напишіть функцію, яка перетворює рядок в число, використовуючи Number()
+// console.log(String.fromCodePoint(128551))
+// const a = 'HelloWord'
 
-function stringToNumber(str) {
-  // Використовуємо Number() для перетворення рядка в число
-  // Повертаємо отримане число
-  return Number(str)
+// const b = '~1-=';
+
+// console.log(b.codePointAt(1))
+// console.log(String.fromCodePoint(49))
+
+// console.log(`www.text.com/home\ncatalog`)
+// console.log(String.raw`www.text.com/home\catalog`)
+
+// console.log(a.concat('', b, '', '0'))
+
+// console.log(a.includes('lo'))
+
+// console.log(a.indexOf('lo'))
+
+// console.log(a.startsWith('lo', 3))
+
+// // пропускаэться 9-ый символ
+// console.log(a.endsWith('d', 9))
+
+// console.log(a.at(0))
+
+
+// ////////////////////////////////////////////////////////////////////////////////////
+
+// МАСИВ //
+
+const a = 1;
+const b = 2;
+const c = 3;
+const getOne = () => 1
+
+let list = [() => { }, function Name() { }, 100, 'text', getOne()]
+
+// console.log(list)
+
+const testArr = Array(5);
+
+testArr[0] = 'Start';
+testArr[1] = 'Job';
+testArr[2] = 2;
+testArr[testArr.length] = 30;
+testArr[testArr.length] = 40;
+
+testArr[null] = 'Test'
+testArr["Test"] = 'test';
+// до неї можна звертитсь через крапку а саме: console.log(testArr.(назва комірки до якої звертаємося)). 
+// АЛЕ, ВИКОРИСТАННЯ КОМІРОК З НАЗВОНЮ НЕ РЕКОМЕНДУЄТЬСЯ.   
+
+const big = [[[1], [2, 3, 4, 5], [3]], [[2]], [[3]]]
+
+// console.log(big[0][1][2])
+
+
+// function printFullName(name, surname, lastname) {
+//     return `${name}, ${surname}, ${lastname}`
+// }
+
+// console.log(printFullName('Iva', 'Ivanov', 'Ivanovich'))
+
+
+function printFullName([name, surname, lastname, ...arg]) {
+    // console.log(arg)
+    // return arg.toString()
+    return `${name} ${surname} ${lastname} ${arg.length ? `(${arg.toString()})` : ''}`
+}
+// Використання деструктурізації
+// console.log(printFullName(['Ivan', 'Ivanov', 'Ivanovich']))
+
+// function sumAllNum(...nums) {
+//     let sum = 0;
+
+//     for (const n of nums) {
+//         sum += n;
+//     }
+
+//     return [sum, nums.length];
+// }
+
+// const [sum, numLength] = sumAllNum(1, 2, 3)
+// console.log(sum, numLength)
+
+// const location = [[100, 190], [200, 100], [300, 100],];
+// const local = [1, 1, 1, 1, 1]
+
+// for (const test of local) {
+//     console.log(test)
+// }
+
+
+// ОБ'ЄЕКТ ........................................
+
+// спосіб як можно проітерувати об'єкт
+
+let range = {
+    from: 1,
+    to: 5,
+
+    // () - скорчення функції
+
+    [Symbol.iterator]() {
+        this.current = this.from;
+
+        return this;
+
+        // return {
+        //     // властивість з функцією називається МЕТОД
+        //     // уюявити що це наче FOR і використовувати наче FOR
+
+        //     // в кінці треба повертати об'єкт, в якому кажется що треба зупинити ітерацію (done) і виведе значення (value)(не обов'язково)
+        //   next() {
+        //      return this.current <= this.to ? { done: false, value: this.current++ } : { done: true };
+        //   },
+        //     // приклад
+
+        // }
+    },
+
+    next() {
+        return this.current <= this.to ? { done: false, value: this.current++ } : { done: true };
+    }
 }
 
-console.log("Завдання 1 ====================================");
-console.log('stringToNumber("42")', stringToNumber("42")); // Виведе 42
+// for (let num of range) {
+//     console.log(num)
+// }
 
-// Задача 2: Напишіть функцію, яка визначає, чи є два числа майже однаковими, використовуючи Number.EPSILON
+const iterator = range[Symbol.iterator]();
 
-function isAlmostSame(num1, num2) {
-  // Визначаємо, чи є різниця між двома числами меншою або рівною EPSILON
-  return num1 - num2 < Number.EPSILON && num1 - num2 > -Number.EPSILON;
-}
+do {
+    console.log(iterator.current);
 
-console.log("Завдання 2 ====================================");
-console.log("isAlmostSame(0.1 + 0.2, 0.3)", isAlmostSame(0.1 + 0.2, 0.3)); // Виведе true
-
-// Задача 3: Напишіть функцію, яка перевіряє, чи є число безпечним цілим числом
-
-function isSafeInteger(num) {
-  // Перевіряємо, чи є число меншим або рівним MAX_SAFE_INTEGER і більшим або рівним MIN_SAFE_INTEGER
-  return num <= Number.MAX_SAFE_INTEGER && num >= Number.MIN_SAFE_INTEGER
-}
-
-console.log("Завдання 3 ====================================");
-console.log(
-  "isSafeInteger(Number.MAX_SAFE_INTEGER + 1)",
-  isSafeInteger(Number.MAX_SAFE_INTEGER + 1)
-); // Виведе false
-
-// Задача 4: Використовуючи результати Задачі 3, напишіть функцію, яка перевіряє, чи є число небезпечним цілим числом
-
-function isUnsafeInteger(num) {
-  // Використовуємо логічну оператор НЕ (!), щоб отримати протилежну відповідь від функції isSafeInteger()
-  return !isSafeInteger(num)
-}
-
-console.log("Завдання 4 ====================================");
-console.log(
-  "isUnsafeInteger(Number.MIN_SAFE_INTEGER - 1)",
-  isUnsafeInteger(Number.MIN_SAFE_INTEGER - 1)
-); // Виведе true
-
-// Задача 5: Напишіть функцію, яка перевіряє, чи є число надто великим для представлення в JavaScript
-
-function isTooLarge(num) {
-  // Перевіряємо, чи є число більшим за MAX_VALUE
-  return num > Number.MAX_VALUE
-}
-
-console.log("Завдання 5 ====================================");
-console.log(
-  "isTooLarge(Number.MAX_VALUE * 2)",
-  isTooLarge(Number.MAX_VALUE * 2)
-); // Виведе true
-
-// Задача 6: Напишіть функцію, яка перевіряє, чи є число меншим чим  найменше можливе числове значення в JavaScript
-
-function isAlmostZero(num) {
-  // Перевіряємо, чи є число більше 0, але все ще менше за Number.MIN_VALUE
-  return num < Number.MIN_VALUE && num > 0;
-}
-
-console.log("Завдання 6 ====================================");
-console.log(
-  "isAlmostZero(Number.MIN_VALUE / 2)",
-  isAlmostZero(Number.MIN_VALUE / 2)
-); // Виведе false
-console.log("isAlmostZero(Number.MIN_VALUE)", isAlmostZero(Number.MIN_VALUE)); // Виведе false
-
-// Задача 7: Напишіть функцію, яка перевіряє, чи є значення цілим числом
-
-function checkIsInteger(num) {
-  // Використовуємо вбудовану функцію Number.isInteger(), щоб перевірити, чи є значення цілим числом
-  return Number.isInteger(num)
-}
-
-console.log("Завдання 7 ====================================");
-console.log("checkIsInteger(42.5)", checkIsInteger(42.5)); // Виведе false
-
-// Задача 8: Напишіть функцію, яка перевіряє, чи є значення безпечним цілим числом
-
-function checkIsSafeInteger(num) {
-  // Використовуємо вбудовану функцію Number.isSafeInteger(), щоб перевірити, чи є значення безпечним цілим числом
-  return Number.isSafeInteger(num)
-}
-
-console.log("Завдання 8 ====================================");
-console.log(
-  "checkIsSafeInteger(Math.pow(2, 53))",
-  checkIsSafeInteger(Math.pow(2, 53))
-); // Виведе false
-
-// Задача 9: Напишіть функцію, яка конвертує число в рядок з експоненційним представленням
-
-function convertToExponential(num) {
-  // Використовуємо метод toExponential(), щоб конвертувати число в рядок з експоненційним представленням
-  return num.toExponential()
-}
-
-console.log("Завдання 9 ====================================");
-console.log("convertToExponential(42)", convertToExponential(42)); // Виведе "4.2e+1"
-
-// Задача 10: Напишіть функцію, яка конвертує число в рядок з фіксованою кількістю знаків після коми
-
-function convertToFixed(num, precision) {
-  // Використовуємо метод toFixed(), щоб конвертувати число в рядок з фіксованою кількістю знаків після коми
-  return num.toFixed(2)
-}
-
-console.log("Завдання 10 ====================================");
-console.log("convertToFixed(42.9876, 2)", convertToFixed(42.9876, 2)); // Виведе "42.99"
-
-// Задача 11: Напишіть функцію, яка конвертує число в рядок
-
-function convertToString(num) {
-  // Використовуємо метод toString(), щоб конвертувати число в рядок
-  return num.toString()
-}
-
-console.log("Завдання 11 ====================================");
-console.log("convertToString(42)", convertToString(42)); // Виведе "42"
-
-// Задача 12: Напишіть функцію, яка окргугляє число до вказаної довжини
-
-function convertToPrecision(num, precision) {
-  // Використовуємо метод toPrecision(), щоб округлити число до вказаної довжини
-  return num.toPrecision(precision)
-}
-
-console.log("Завдання 12 ====================================");
-console.log("convertToPrecision(42.9876, 2)", convertToPrecision(42.9876, 2)); // Виведе "43"
-
-
+    result = iterator.next();
+} while (!result.done);
